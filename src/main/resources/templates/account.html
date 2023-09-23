@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+	<head>
+		<title>Accounts</title>
+	</head>
+	<body>
+		<h2>Accounts</h2>
+		<hr/>
+		<form th:action="" method="post">
+			<div>
+				Account Name: <input type="text" th:field="${user.account.accountName}"/>
+			</div>
+			<input type="submit" value="Save Account"/>
+			<hr/>
+			<a href="@{/users/{userId}(userId=${user.userId})}">back</a>
+		</form>
+	</body>	
+</html>
