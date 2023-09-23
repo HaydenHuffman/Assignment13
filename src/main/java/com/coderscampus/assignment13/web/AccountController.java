@@ -21,13 +21,13 @@ public class AccountController {
 	@Autowired
 	private AccountService accountService;
 
-	@PostMapping("/users/{userId}/accounts")
+	@PostMapping("/users/{userId}/account")
 	public String createNewAccount(@PathVariable Long userId) {
 		Account account = accountService.createNewAccount(userId);
 		return "redirect:/users/" + userId;
 	}
 	
-	@GetMapping("/users/{userId}/accounts/{accountId}")
+	@GetMapping("/users/{userId}/account/{accountId}")
 	public String showOneAccount(@PathVariable Long userId, @PathVariable Long accountId, ModelMap model) {
 		Account account = accountService.findById(accountId);
 		User user = userService.findById(userId);
@@ -36,11 +36,10 @@ public class AccountController {
 		return "account";
 	}
 	
-	@PostMapping("/users/{userId}/accounts/{accountId}")
-	public String updateAccountName(@PathVariable Long userId, @PathVariable Long accountId) {
-		Account account = accountService.findById(accountId);
+	@PostMapping("/users/{userId}/account/{accountId}")
+	public String updateAccountName(@PathVariable Long userId, Account account) {
 		accountService.save(account);
-		return "redirect:/users/" + userId + "/accounts/" + accountId;
+		return "redirect:/users/" + userId + "/account/" + account.getAccountId();
 	}
 }
 
