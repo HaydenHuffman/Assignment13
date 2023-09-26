@@ -17,6 +17,8 @@
 				<div>
 					Full Name: <input type="text" th:field="${user.name}" />
 				</div>
+				<input type="hidden" th:field="${user.userId}" />
+					
 				<hr/>
 				<div>
 					Address Line 1: <input type="text" th:field="${user.address.addressLine1}"/>
@@ -36,6 +38,8 @@
 				<div>
 					Zip Code: <input type="text" th:field="${user.address.zipCode}"/>
 				</div>
+				<input type="hidden" th:field="${user.address.userId}" />
+				
 				<div>
 					<input type="submit" value="Update User Account" />
 				</div>

@@ -41,7 +41,7 @@ public class UserController {
 	public String postCreateUser (User user) {
 		System.out.println(user);
 		userService.saveUser(user);
-		return "redirect:/register";
+		return "redirect:/users";
 	}
 	
 	@GetMapping("/users")
@@ -59,10 +59,16 @@ public class UserController {
 	@GetMapping("/users/{userId}")
 	public String getOneUser (ModelMap model, @PathVariable Long userId) {
 		User user = userService.findById(userId);
+		if (user.getAddress()== null) { 
+			Address address = new Address();
+			address.setUser(user);
+			address.setUserId(userId);
+			user.setAddress(address);
+		}
 	
 		model.put("users", Arrays.asList(user));
 		model.put("user", user);
-		
+		model.put("address", user.getAddress());
 		return "users";
 	}
 	
@@ -75,5 +81,11 @@ public class UserController {
 		user.setAddress(address);
 		userService.saveUser(user);
 		return "redirect:/users/"+user.getUserId();
+	}
+	
+	@PostMapping("/users/{userId}/delete")
+	public String deleteUser(@PathVariable Long userId) {
+		userService.delete(userId);
+		return "redirect:/users";
 	}
 }

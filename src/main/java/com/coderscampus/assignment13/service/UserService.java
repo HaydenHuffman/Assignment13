@@ -56,7 +56,7 @@ public class UserService {
 
 	public User saveUser(User user) {
 		if (user.getUserId() == null) {
-			Address address = user.getAddress();
+			Address address = new Address();
 			Account checking = new Account();
 			checking.setAccountName("Checking Account");
 			checking.getUsers().add(user);
@@ -80,4 +80,10 @@ public class UserService {
 	public void delete(Long userId) {
 		userRepo.deleteById(userId);
 	}
+
+	public User findByIdWithAccounts(Long userId) {
+		Optional<User> userOpt = userRepo.findByIdWithAccounts(userId);
+		return userOpt.orElse(new User());
+	}
+	
 }
